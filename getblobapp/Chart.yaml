@@ -1,0 +1,11 @@
+apiVersion: v2
+name: getblobapp
+description: A Helm chart to deploy application to get content of Azure Blob Storage on Kubernetes
+type: application
+version: 0.1.0
+appVersion: "1.0.0"
+maintainers:
+- email: info@malchielurias.com
+  name: Malchiel Urias
+version: 0.1.0
+appVersion: "1.0.0"
