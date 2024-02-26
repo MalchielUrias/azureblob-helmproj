@@ -1,7 +1,7 @@
 package main
 
 import (
-	controllers "github.com/MalchielUrias/azureblob-helmproj"
+	"github.com/MalchielUrias/azureblob-helmproj/controllers"
 	"github.com/gin-gonic/gin"
 )
 

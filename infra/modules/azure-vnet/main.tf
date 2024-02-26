@@ -89,3 +89,11 @@ resource "azurerm_subnet_network_security_group_association" "nsg_association" {
     azurerm_virtual_network.helm-project-vnet
   ]
 }
+
+# Public IP
+
+
+# Route Table
+
+
+# Route Table Associations
