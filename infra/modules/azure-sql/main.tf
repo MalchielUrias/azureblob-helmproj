@@ -28,7 +28,7 @@ resource "azurerm_mysql_database" "k8s-database" {
 
   # prevent the possibility of accidental data loss
   lifecycle {
-    prevent_destroy = true
+    prevent_destroy = false
   }
 
   depends_on = [

@@ -64,7 +64,7 @@ resource "azurerm_network_security_group" "helm-vnet-sg" {
 
   security_rule {
     name                       = "Allow-SSH"
-    priority                   = 200
+    priority                   = 300
     direction                  = "Inbound"
     access                     = "Allow"
     protocol                   = "Tcp"
@@ -76,8 +76,8 @@ resource "azurerm_network_security_group" "helm-vnet-sg" {
 
   depends_on = [
     azurerm_virtual_network.helm-project-vnet,
-    azazurerm_subnet.subnetA,
-    azazurerm_subnet.subnetB
+    azurerm_subnet.subnetA,
+    azurerm_subnet.subnetB
   ]
 }
 

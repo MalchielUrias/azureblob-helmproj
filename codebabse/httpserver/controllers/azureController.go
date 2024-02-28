@@ -3,13 +3,20 @@ package controllers
 import (
 	"context"
 
-	"github.com/Azure/azure-sdk-for-go/sdk/azidentity"
+	// "github.com/Azure/azure-sdk-for-go/sdk/azidentity"
 	"github.com/Azure/azure-sdk-for-go/sdk/storage/azblob"
 	"github.com/gin-gonic/gin"
 
+	"encoding/json"
 	"fmt"
 	"log"
+	"net/http"
+	"os"
 )
+
+type BlobList struct {
+	Blobs []string `json:"blobs"`
+}
 
 func handleError(err error) {
 	if err != nil {
@@ -19,41 +26,50 @@ func handleError(err error) {
 
 func ListBlob(c *gin.Context) {
 
+	blobs, err := listBlobs()
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
+	jsonData, err := json.Marshal(BlobList{Blobs: blobs})
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
+	c.JSON(http.StatusOK, jsonData)
+
+}
+
+func listBlobs() ([]string, error) {
+
 	const (
-		url           = "https://MYSTORAGEACCOUNT.blob.core.windows.net/"
-		containerName = "sample-container"
+		url           = "https://helmrepomalchiel.blob.core.windows.net/"
+		containerName = "helm-repo-container"
 	)
 
-	// url := "https://<storage-account-name>.blob.core.windows.net/"
+	connectionString, ok := os.LookupEnv("AZURE_STORAGE_CONNECTION_STRING")
+	if !ok {
+		panic("AZURE_STORAGE_ACCOUNT_NAME could not be found")
+	}
 
-	// authenticate with Azure Active Directory
-	cred, err := azidentity.NewDefaultAzureCredential(nil)
-
-	// create a client for the specified storage account
-	client, err := azblob.NewClient(url, cred, nil)
+	serviceClient, err := azblob.NewClientFromConnectionString(connectionString, nil)
 	handleError(err)
+	fmt.Println(serviceClient.URL())
 
-	// List Blob
+	blobs := []string{}
 
-	fmt.Println("Listing the blobs in the container:")
+	pager := serviceClient.NewListBlobsFlatPager(containerName, nil)
 
-	// blob listings are returned across multiple pages
-	pager := client.NewListBlobsFlatPager(containerName, &azblob.ListBlobsFlatOptions{
-		Include: azblob.ListBlobsInclude{Snapshots: true, Versions: true},
-	})
-
-	// continue fetching pages until no more remain
 	for pager.More() {
 		resp, err := pager.NextPage(context.TODO())
-		handleError(err)
-
-		for _, blob := range resp.Segment.BlobItems {
-			fmt.Println(*blob.Name)
+		handleError(err) // if err is not nil, break the loop.
+		for _, _blob := range resp.Segment.BlobItems {
+			fmt.Printf("%v", _blob.Name)
+			blobs = append(blobs, *_blob.Name)
 		}
 	}
 
-	c.JSON(200, gin.H{
-		"message": pager,
-	})
-
+	return blobs, nil
 }

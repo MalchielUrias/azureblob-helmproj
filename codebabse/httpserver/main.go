@@ -2,8 +2,17 @@ package main
 
 import (
 	"github.com/MalchielUrias/azureblob-helmproj/controllers"
+	"github.com/MalchielUrias/azureblob-helmproj/initializers"
 	"github.com/gin-gonic/gin"
 )
+
+type BlobList struct {
+	Blobs []string `json:"blobs"`
+}
+
+func init() {
+	initializers.LoadEnv()
+}
 
 func main() {
 	r := gin.Default()

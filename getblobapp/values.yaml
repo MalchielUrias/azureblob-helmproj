@@ -4,15 +4,19 @@
 
 replicaCount: 2
 
+namespace: getblobapp
+
 image:
-  repository: nginx
+  repository: edurias/getblobapp
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: ""
+  tag: "latest"
 
 imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
+
+containerPort: 8080
 
 serviceAccount:
   # Specifies whether a service account should be created
@@ -42,6 +46,10 @@ securityContext: {}
 service:
   type: ClusterIP
   port: 80
+  targetPort: 8080
+
+connstring: aHR0cHM7QWNjb3VudE5hbWU9aGVsbXJlcG9tYWxjaGllbDtBY2NvdW50S2V5PUpVYWVDOHdYMXVVNXI3WHoyU0hQNm40LzduMjlnRDVJQ2d0aTV2RXNlSkdybGpDalRRbERLWFhOWGQ2QklHczRla1Y4UGlvQXdiR1YrQVN0Vm8zdnd3PT07RW5kcG9pbnRTdWZmaXg9Y29yZS53aW5kb3dzLm5ldA==
+
 
 ingress:
   enabled: false

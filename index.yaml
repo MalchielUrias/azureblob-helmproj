@@ -1,0 +1,18 @@
+apiVersion: v1
+entries:
+  getblobapp:
+  - apiVersion: v2
+    appVersion: 1.0.0
+    created: "2024-02-28T18:58:51.5273288+01:00"
+    description: A Helm chart to deploy application to get content of Azure Blob Storage
+      on Kubernetes
+    digest: 85bedb8251204b79b77645d3219941afe1ab80f97911546cfa5e2cb1427150a9
+    maintainers:
+    - email: info@malchielurias.com
+      name: Malchiel Urias
+    name: getblobapp
+    type: application
+    urls:
+    - https://helmrepomalchiel.blob.core.windows.net/helm-repo-container/getblobapp-0.1.0.tgz
+    version: 0.1.0
+generated: "2024-02-28T18:58:51.5248356+01:00"

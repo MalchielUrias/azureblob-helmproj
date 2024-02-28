@@ -1,6 +1,7 @@
 variable "resource_group_name" {
     description = "A container that holds related resources for an Azure solution"
     default = "kubernetes-project"
+    # type = string
   }
 
 variable "location" {
@@ -10,7 +11,7 @@ variable "location" {
 
 variable "storage_account_name" {
     description = "The name of the storage account for the helm repo blob"
-    default = "helm-repo"
+    default = "helmrepomalchiel"
   }
 
 variable "storage_container_name" {

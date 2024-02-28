@@ -1,9 +1,10 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: "{{ include "getblobapp.fullname" . }}-test-connection"
+  name: {{ .Release.Name }}-test-connection
+  namespace: {{ .Values.namespace }}
   labels:
-    {{- include "getblobapp.labels" . | nindent 4 }}
+    app: {{ .Chart.Name }}
   annotations:
     "helm.sh/hook": test
 spec:
@@ -11,5 +12,5 @@ spec:
     - name: wget
       image: busybox
       command: ['wget']
-      args: ['{{ include "getblobapp.fullname" . }}:{{ .Values.service.port }}']
+      args: ['{{ .Release.Name }}-test-connection:{{ .Values.service.port }}']
   restartPolicy: Never

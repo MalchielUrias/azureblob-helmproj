@@ -1,6 +1,7 @@
 variable "resource_group_name" {
     description = "A container that holds related resources for an Azure solution"
     default = "kubernetes-project"
+    # type = string
   }
 
 variable "location" {
@@ -13,23 +14,25 @@ variable "name" {
 }
 
 variable "default_node_pool_name" {
-  default = "k8s-app-nodepool"
+  default = "k8snodepool"
 }
 
 variable "default_node_pool_vm_size" {
   default = "Standard_D2_v2"
 }
 
-variable "vnet_subnet_id" {
-  type = string
-}
+# variable "vnet_subnet_id" {
+#   type = string
+# }
 
-variable "pod_subnet_id" {
-  type = string
-}
+# variable "pod_subnet_id" {
+#   type = string
+# }
 
 variable "default_node_pool_node_count" {
   default = 2
 }
 
-
+variable "dns_prefix" {
+  default = "k8sapp"
+}
