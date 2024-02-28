@@ -29,7 +29,6 @@
     <li>
       <a href="#getting-started">Getting Started</a>
       <ul>
-        <li><a href="#prerequisites">Prerequisites</a></li>
         <li><a href="#setup">Setup</a></li>
       </ul>
     </li>
@@ -78,14 +77,6 @@ It has aspects of containerization, container orchestration, package managements
 
 To get started using this project, you would fork or clone the repo into you repository, setup your Azure Credentials and
 then Deploy into into your Azure Cloud Environment.
-
-### Prerequisites
-
-This is an example of how to list things you need to use the software and how to install them.
-* npm
-  ```sh
-  npm install npm@latest -g
-  ```
 
 ### Setup
 
